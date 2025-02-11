@@ -62,4 +62,34 @@ async def attack(ctx):
         await ctx.send("Saldırmak istediğiniz kullanıcıyı etiketleyerek belirtin.")
 
 
+@bot.command()
+async def info(ctx):
+    author = ctx.author.name  
+    
+    if author in Pokemon.pokemons:
+        pok = Pokemon.pokemons[author]  # Kullanıcının oluşturduğu Pokémon'u kullan
+        info_message = await pok.info()  
+        await ctx.send(info_message)  
+        
+        image_url = await pok.show_img()  
+        if image_url:
+            embed = discord.Embed()  
+            embed.set_image(url=image_url)  
+            await ctx.send(embed=embed)  
+        else:
+            await ctx.send("Pokémon'un resmi yüklenemedi!")
+    else:
+        await ctx.send("Henüz bir Pokémon'unuz yok! '!go' komutunu kullanarak bir tane oluşturabilirsiniz.")
+
+
+@bot.command()
+async def feed(ctx):
+    author = ctx.author.name 
+    if author in Pokemon.pokemons:
+        pokemon = Pokemon.pokemons[author]
+        result = await pokemon.feed()
+        await ctx.send(result)
+    else:
+        await ctx.send("You should create a pokemon first!")
+
 bot.run(token)
