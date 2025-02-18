@@ -1,4 +1,4 @@
 Pokemon bo
 
-yeni özellik: feed komutu
+yeni özellik: feed komutu(opsiyonel)
 
